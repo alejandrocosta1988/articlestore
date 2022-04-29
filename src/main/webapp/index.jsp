@@ -11,9 +11,9 @@
   <h1>List of published articles</h1>
   
   <p>
-    <a href="download?action=checkUser&productCode=cat01">Articles in Journals</a><br>
-    <a href="download?action=checkUser&productCode=cat02">Chapters in Books</a><br>
-    <a href="download?action=checkUser&productCode=cat03">Abstracts in Annals</a><br>
+    <a href="download?action=checkUser&productCode=articles">Articles in Journals</a><br>
+    <a href="download?action=checkUser&productCode=bookchapters">Chapters in Books</a><br>
+    <a href="download?action=checkUser&productCode=abstracts">Abstracts in Annals</a><br>
   </p>
   
   <footer>
