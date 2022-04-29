@@ -27,21 +27,21 @@
       <tr>
         <td>The title for the first article</td>
         <td>
-          <a href="#">PDF</a>
+          <a href="/articlestore/${productCode}/example_file1.txt" target="_blank">PDF</a>
         </td>
       </tr>
       
       <tr>
         <td>The title for the second article</td>
         <td>
-          <a href="#">PDF</a>
+          <a href="/articlestore/${productCode}/example_file2.txt" target="_blank">PDF</a>
         </td>
       </tr>
       
       <tr>
         <td>The title for the third article</td>
         <td>
-          <a href="#">PDF</a>
+          <a href="/articlestore/${productCode}/example_file3.txt" target="_blank">PDF</a>
         </td>
       </tr>
       
