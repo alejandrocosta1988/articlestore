@@ -11,7 +11,7 @@
   
   <h1>Downloads</h1>
   
-  <h2>Articles in Journals</h2>
+  <h2>Articles in journals</h2>
   
   <table>
   
