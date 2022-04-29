@@ -75,7 +75,42 @@ public class DownloadServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		
+		String action = request.getParameter("action");
+		String url = "/index.jsp";
+		
+		if (action.equals("registerUser")) {
+			url = registerUser(request, response);
+		}
+		
+		getServletContext().getRequestDispatcher(url).forward(request, response);
+		
+	}
+	
+	private String registerUser(HttpServletRequest request, HttpServletResponse response) {
+		
+		String email = request.getParameter("email");
+		String firstName = request.getParameter("first-name");
+		String lastName = request.getParameter("last-name");
+		
+		User user = new User(firstName, lastName, email);
+		
+		ServletContext sc = getServletContext();
+		String path = sc.getRealPath("/WEB-INF/EmailList.txt");
+		UserIO.add(user, path);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("user", user);
+		
+		Cookie cookie = new Cookie("emailCookie", email);
+		cookie.setMaxAge(60 * 60 * 24 * 365 * 2); //cookie será armazenado no navegador do cliente por dois anos
+		cookie.setPath("/"); //cookie acessível para toda a aplicação
+		response.addCookie(cookie);
+		
+		String productCode = (String) session.getAttribute("productCode");
+		String url = "/" + productCode + "_download.jsp";
+		
+		return url;
 	}
 
 }
