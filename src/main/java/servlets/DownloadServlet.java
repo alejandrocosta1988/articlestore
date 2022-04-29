@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet("/download")
 public class DownloadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -15,7 +16,21 @@ public class DownloadServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		String action = request.getParameter("action");
+		if (action == null) {
+			action = "viewCategories"; //default action
+		}
+		
+		String url = "/index.jsp";
+		if (action.equals("viewCategories")) {
+			url = "/index.jsp";
+		} else if (action.equals("checkUser")) {
+			url = "/register.jsp";
+		}
+		
+		getServletContext().getRequestDispatcher(url).forward(request, response);
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
