@@ -26,10 +26,16 @@ public class DownloadServlet extends HttpServlet {
 		if (action.equals("viewCategories")) {
 			url = "/index.jsp";
 		} else if (action.equals("checkUser")) {
-			url = "/register.jsp";
+			url = checkUser(request, response);
 		}
 		
 		getServletContext().getRequestDispatcher(url).forward(request, response);
+		
+	}
+	
+	private String checkUser(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "/register.jsp";
 		
 	}
 
