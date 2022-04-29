@@ -1,11 +1,18 @@
 package servlets;
 
+import java.io.IOException;
+
+import data.UserIO;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import jakarta.servlet.http.HttpSession;
+import model.User;
+import util.CookieUtil;
 
 @WebServlet("/download")
 public class DownloadServlet extends HttpServlet {
@@ -35,7 +42,35 @@ public class DownloadServlet extends HttpServlet {
 	
 	private String checkUser(HttpServletRequest request, HttpServletResponse response) {
 		
-		return "/register.jsp";
+		String productCode = request.getParameter("productCode");
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("productCode", productCode);
+
+		String url = "";
+		
+		User user = (User) session.getAttribute("user");
+		
+		if (user == null) {
+			
+			Cookie[] cookies = request.getCookies();
+			String emailAddress = CookieUtil.getCookieValue(cookies, "emailCookie");
+			
+			if (emailAddress == null || emailAddress.isEmpty()) {
+				url = "/register.jsp";
+			} else {
+				ServletContext sc = getServletContext();
+				String path = sc.getRealPath("/WEB-INF/EmailList.txt");
+				user = UserIO.getUser(emailAddress, path);
+				session.setAttribute("user", user);
+				url = "/" + productCode + "_download.jsp";
+			}
+			
+		} else {
+			url = "/" + productCode + "_download.jsp";
+		}
+		
+		return url;
 		
 	}
 
